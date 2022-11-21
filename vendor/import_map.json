@@ -1,0 +1,7 @@
+{
+  "imports": {
+    "https://aws-api.deno.dev/v0.3/services/sesv2.ts?actions=SendEmail": "./aws-api.deno.dev/v0.3/services/sesv2.ts",
+    "https://aws-api.deno.dev/": "./aws-api.deno.dev/",
+    "https://deno.land/": "./deno.land/"
+  }
+}
