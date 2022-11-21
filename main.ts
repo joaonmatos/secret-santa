@@ -145,9 +145,9 @@ const ses = new ApiFactory({
   region: "eu-central-1",
 }).makeNew(SESV2);
 
-const futures = Object.keys(consolidatedAssignments).map((email) => {
+for (const email of Object.keys(consolidatedAssignments)) {
   const assignments = consolidatedAssignments[email];
-  return ses.sendEmail({
+  await ses.sendEmail({
     "FromEmailAddress": "secret-santa@secret-santa.joaonmatos.com",
     Destination: {
       ToAddresses: [email],
@@ -165,7 +165,5 @@ const futures = Object.keys(consolidatedAssignments).map((email) => {
       },
     },
   });
-});
-
-const results = await Promise.allSettled(futures);
-console.log(results);
+  await new Promise((resolve) => setTimeout(resolve, 1100));
+}
