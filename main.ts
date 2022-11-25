@@ -166,5 +166,4 @@ for (const email of Object.keys(consolidatedAssignments)) {
       },
     },
   });
-  await new Promise((resolve) => setTimeout(resolve, 1100));
 }
