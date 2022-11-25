@@ -147,6 +147,7 @@ const ses = new ApiFactory({
 
 for (const email of Object.keys(consolidatedAssignments)) {
   const assignments = consolidatedAssignments[email];
+
   await ses.sendEmail({
     "FromEmailAddress": "secret-santa@secret-santa.joaonmatos.com",
     Destination: {
