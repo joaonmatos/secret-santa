@@ -1,4 +1,4 @@
-import jsonData from "./data.json" assert { type: "json" };
+import jsonData from "./data.json" with { type: "json" };
 
 import { z } from "https://deno.land/x/zod@v3.19.1/mod.ts";
 
@@ -84,7 +84,7 @@ class SecretSantaAssigner {
    */
   static #shuffle<T>(array: T[]) {
     for (let i = array.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
+      const j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
 
       // swap elements array[i] and array[j]
       // we use "destructuring assignment" syntax to achieve that
@@ -141,22 +141,24 @@ function formatEmail(
 }
 
 const ses = new ApiFactory({
-  credentialProvider: new SharedIniFileCredentials({ profile: "SecretSanta" }),
+  credentialProvider: new SharedIniFileCredentials({ profile: "default" }),
   region: "eu-central-1",
 }).makeNew(SESV2);
 
 for (const email of Object.keys(consolidatedAssignments)) {
   const assignments = consolidatedAssignments[email];
 
+  const giverList = assignments.map((a) => a.giver).join(", ");
+
   await ses.sendEmail({
-    "FromEmailAddress": "secret-santa@secret-santa.joaonmatos.com",
+    "FromEmailAddress": "secret-santa@joaonmatos.com",
     Destination: {
       ToAddresses: [email],
     },
     Content: {
       Simple: {
         Subject: {
-          Data: `Amigo oculto 2022`,
+          Data: `Amigo Oculto 2024: ${giverList}`,
         },
         Body: {
           Text: {
